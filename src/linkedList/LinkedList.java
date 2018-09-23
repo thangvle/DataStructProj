@@ -28,6 +28,7 @@ public class LinkedList<E> {
 
         return null;
     }
+
     public String toString(){
         //ask about this part
         String output = "[";
