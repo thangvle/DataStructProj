@@ -1,7 +1,7 @@
 
 package Josephus;
 
-import org.omg.PortableInterceptor.INACTIVE;
+
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -22,9 +22,14 @@ public class CircularLinkedList <E> implements Iterable<E> {
         return null;
     }
 
+    public static <E> void josephus(LinkedList<E> list, int index){
+
+    }
+
     public CircularLinkedList() {
         this.head = null;
         this.tail = null;
+        this.tail.next = null;
         size = 0;
     }
     // I highly recommend using this helper method
@@ -68,13 +73,16 @@ public class CircularLinkedList <E> implements Iterable<E> {
             temp.next = head;
             head.prev = temp;
             head = temp;
+
         }
         // Case: Adding new tail
         else if (index == size) {
             temp.prev = tail;
             tail.next = temp;
             tail = temp;
-            temp.next = head;
+
+
+            System.out.println(temp.next);
         }
 
         //Everything else
@@ -139,10 +147,13 @@ public class CircularLinkedList <E> implements Iterable<E> {
 
     public static void main(String[] args) {
         LinkedList<Integer> l = new LinkedList<>();
-        l.add(4);
-        l.add(3);
-        l.add(1);
+        l.add(0,4);
+        l.add(0,3);
+        l.add(0,1);
+        l.add(2,2);
+        System.out.println(l.remove(0));
         System.out.println(l);
+
 
     }
 
