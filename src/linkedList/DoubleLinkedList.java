@@ -81,6 +81,7 @@ public class DoubleLinkedList<E> {
         else if (index == size -1 ) {
             removed = tail.item;
             tail = tail.prev;
+            tail.next = null;
         }
 
         else {
@@ -131,8 +132,9 @@ public class DoubleLinkedList<E> {
         l.add("a");
         l.add("b");
         l.add("c");
-        l.add(0, "d");
-        l.add(1,"e");
+        l.add("d");
+        l.add("e");
+        System.out.println(l.getNode(0));
         System.out.println(l.remove(1));
         System.out.println(l.remove(0));
         System.out.println(l.remove(0));
