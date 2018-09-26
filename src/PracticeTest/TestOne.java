@@ -22,16 +22,20 @@ public class TestOne {
 
     public static List<String> reverseWords (List<String> list) {
 
+        List<String> reverseList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++){
             String word = list.get(i).toString();
-            for (int j = 0; j < word.length(); j++){
-                char reverse = word.charAt(j);
-                reverse = word.charAt(word.length() - j-1);
+            String reverse = "";
+            for (int j = word.length()-1; j >= 0 ; j--){
+                reverse = reverse + word.charAt(j);
             }
+
+            reverseList.add(i, reverse);
+
 
 
         }
-        return list;
+        return reverseList;
     }
 
     public static void main(String[] args) {
@@ -43,6 +47,7 @@ public class TestOne {
         l.add(5);
 
         w.add("hello");
+        w.add("yo");
 
         System.out.println(minPlusMax(l));
         System.out.println(reverseWords(w));
