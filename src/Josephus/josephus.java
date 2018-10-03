@@ -1,9 +1,8 @@
 package Josephus;
 
+
 import java.util.Iterator;
-
-public class CircularLinkedList<E> implements Iterable<E> {
-
+public class josephus<E> implements Iterable<E> {
 
 
     // Your variables
@@ -11,36 +10,28 @@ public class CircularLinkedList<E> implements Iterable<E> {
     Node<E> tail;
     int size;  // BE SURE TO KEEP TRACK OF THE SIZE
 
-
     // implement this constructor
-
-    public CircularLinkedList() {
+    public josephus() {
         this.head = null;
         this.tail = null;
-        size = 0;
+        this.size = 0;
     }
-
     // I highly recommend using this helper method
     // Return Node<E> found at the specified index
     // be sure to handle out of bounds cases
     private Node<E> getNode(int index ) {
-
         Node<E> current = head;
         for (int i = 0; i < index; i++){
             current = current.next;
         }
-
-        return null;
+        return current;
     }
-
 
     // attach a node to the end of the list
     public boolean add(E item) {
         this.add(size,item);
         return true;
-
     }
-
 
     // Cases to handle
     // out of bounds
@@ -49,15 +40,11 @@ public class CircularLinkedList<E> implements Iterable<E> {
     // adding to "end"
     // adding anywhere else
     // REMEMBER TO INCREMENT THE SIZE
-
     public void add(int index, E item){
-
         if (index < 0 || index > size){
             throw new IndexOutOfBoundsException("Not valid index");
         }
-
         Node<E> temp = new Node<>(item);
-
 
         if(size==0) {
             head = temp;
@@ -67,29 +54,19 @@ public class CircularLinkedList<E> implements Iterable<E> {
         else if (index == 0) {
             temp.next = head;
             head = temp;
-            tail.next = head;
         }
-
         else if (index == size){
             temp.next = head;
             tail.next = temp;
             tail = temp;
-
         }
-
         else{
-            Node<E> before = getNode(index-1);
-            temp.next = before.next;
+            Node<E> before = getNode(index - 1);
+            temp.next = head; // connect head to tail
             before.next = temp;
         }
         size++;
-
     }
-
-
-
-
-
     // remove must handle the following cases
     // out of bounds
     // removing the only thing in the list
@@ -97,65 +74,43 @@ public class CircularLinkedList<E> implements Iterable<E> {
     // removing the last thing
     // removing any other node
     // REMEMBER TO DECREMENT THE SIZE
-
     public E remove(int index) {
-
         E toReturn = null;
-
-
-
-        //  out of bounds
-
+        // Node<E> temp = new Node<>(toReturn);
+        //out of bound exception
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Can't Remove That.");
         }
-
-        //  remove the only thing in the list
-
+        //removing the only head
         if (size == 1){
             toReturn = head.item;
             this.head = null;
             this.tail = null;
         }
-
-        //  removing head
-
         else if (index == 0){
-
+            Node<E> after = getNode(index+1);
             toReturn = head.item;
-            head = head.next;
-            tail.next = head;
+            after = head.next;
+            tail.next = after;
+            head = after;
         }
-
-        //  remove last index
-
+        //remove loop
         else if (index == size-1) {
             Node<E> before = getNode(index-1);
-            //Node<E> after = getNode(index + 1);
-            before.next = head;
+            Node<E> after = getNode(index+1);
+            before.next = after;
             tail = before;
 
-
         }
-
-
-        //  everything else
-
+        //removing other index
         else {
             Node<E> before = getNode(index-1);
-            System.out.println(index);
-            toReturn = getNode(index).item;
-            before.next = before.next.next;
-
-
+            toReturn = before.next.item;
+            before.next = before.next.next; //Skipping the index to delete
         }
-
-
         size--;
         return toReturn;
-
     }
-
 
 
 
@@ -169,7 +124,6 @@ public class CircularLinkedList<E> implements Iterable<E> {
         }
         if(size == 1) {
             return head.item.toString();
-
         }
         else{
             do{
@@ -181,38 +135,30 @@ public class CircularLinkedList<E> implements Iterable<E> {
         return result.toString();
     }
 
-
     public Iterator<E> iterator() {
-
         return new ListIterator<E>();
     }
-
     // provided code
     // read the comments to figure out how this works and see how to use it
     // you should not have to change this
     // change at your own risk!
     // this class is not static because it needs the class it's inside of to survive!
     private class ListIterator<E> implements Iterator<E>{
-
         Node<E> nextItem;
         Node<E> prev;
         int index;
-
         @SuppressWarnings("unchecked")
         //Creates a new iterator that starts at the head of the list
         public ListIterator(){
-
             nextItem = (Node<E>) head;
             index = 0;
         }
-
         // returns true if there is a next node
         // this is always should return true if the list has something in it
         public boolean hasNext() {
             // TODO Auto-generat ed method stub
             return size != 0;
         }
-
         // advances the iterator to the next item
         // handles wrapping around back to the head automatically for you
         public E next() {
@@ -221,9 +167,7 @@ public class CircularLinkedList<E> implements Iterable<E> {
             nextItem = nextItem.next;
             index =  (index + 1) % size;
             return prev.item;
-
         }
-
         // removed the last node was visted by the .next() call
         // for example if we had just created a iterator
         // the following calls would remove the item at index 1 (the second person in the ring)
@@ -236,22 +180,17 @@ public class CircularLinkedList<E> implements Iterable<E> {
                 target = index - 1;
                 index--;
             }
-            CircularLinkedList.this.remove(target); //calls the above class
+            josephus.this.remove(target); //calls the above class
         }
-
     }
-
 
     private static class Node<E>{
         E item;
         Node<E> next;
-
         public Node(E item) {
             this.item = item;
         }
-
     }
-
     // Solve the problem in the main method
     // The answer of n = 13,  k = 2 is
     // the 11th person in the ring (index 10)
@@ -259,33 +198,27 @@ public class CircularLinkedList<E> implements Iterable<E> {
         CircularLinkedList<Integer> l =  new CircularLinkedList<Integer>();
         int n = 13;
         int k = 2;
-
-        for (int i = 0; i < n; i++)
+        for (int i = 1; i <= n; i++)
         {
             l.add(i);
         }
 
-        System.out.println(l.toString());
-        System.out.println(l.getNode(0).item);
-
         // add your nodes here!
-
 
         // add your nodes before this
         // use the iterator to iterate around the list
         Iterator<Integer> iter = l.iterator();
+        while(iter.hasNext()) {
 
-        while (iter.hasNext()){
-
-            for (int j = 0; j < k;j ++){
+            for (int j = 1; j < k+1; j++) {
                 iter.next();
-
             }
-
             iter.remove();
-            System.out.println(l.toString());
+            System.out.println(l);
         }
-
     }
-
 }
+
+
+
+
