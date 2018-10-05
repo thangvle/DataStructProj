@@ -26,11 +26,12 @@ public class CircularLinkedList<E> implements Iterable<E> {
     private Node<E> getNode(int index ) {
 
         Node<E> current = head;
+
         for (int i = 0; i < index; i++){
             current = current.next;
         }
 
-        return null;
+        return current;
     }
 
 
@@ -260,13 +261,13 @@ public class CircularLinkedList<E> implements Iterable<E> {
         int n = 13;
         int k = 2;
 
-        for (int i = 0; i < n; i++)
+        for (int i = 1; i < n; i++)
         {
             l.add(i);
         }
 
         System.out.println(l.toString());
-        System.out.println(l.getNode(0).item);
+
 
         // add your nodes here!
 
