@@ -28,30 +28,7 @@ public class MazeGridPanel extends JPanel {
         //  TODO move and mark as visited
         //  move on the next case
 
-        while (!stack.isEmpty() || !visited[rows-1][cols-1]) {
-            Cell current = stack.peek();
-            int max = 4;
-            int min = 1;
-            int direction = (int)(Math.random() * max) + min ;
 
-            switch (direction) {
-
-                case 1:
-                    if (!current.northWall && !visited[current.row-1][current.col]) {
-                        stack.push(maze[current.row - 1][current.col]);
-                        current.setBackground(Color.GREEN);
-                    }
-
-                default:
-                    current.setBackground(Color.YELLOW);
-                    stack.pop();
-
-
-
-
-            }
-
-        }
 
 
     }
@@ -176,8 +153,8 @@ public class MazeGridPanel extends JPanel {
 
 
         this.genNWMaze();
-        //this.solveMaze();
-        this.genDFSMaze();
+        this.solveMaze();
+        //this.genDFSMaze();
     }
 
 

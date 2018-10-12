@@ -12,6 +12,15 @@ public class DoubleLinkedList<E> {
         size = 0;
     }
 
+    public void concatenate (DoubleLinkedList<E> listA, DoubleLinkedList<E> listB) {
+
+        listA.tail.next = listB.head;
+        listB.head.prev = listA.tail;
+
+
+
+    }
+
     public boolean add(E item){
         add(size, item);
         return true;
@@ -20,7 +29,7 @@ public class DoubleLinkedList<E> {
 
     public void add(int index, E item) {
         //Case 1: out of bound
-        if (index<0 || index >= size){
+        if (index<0 ){
             throw new IndexOutOfBoundsException("Invalid index");
         }
 
@@ -114,7 +123,7 @@ public class DoubleLinkedList<E> {
             current = current.next;
         }
 
-        return null;
+        return current;
     }
 
     private static class Node<E> {
@@ -129,6 +138,17 @@ public class DoubleLinkedList<E> {
 
     public static void main(String[] args) {
         DoubleLinkedList<String> l = new DoubleLinkedList<>();
+
+        DoubleLinkedList<Integer> A = new DoubleLinkedList<>();
+        DoubleLinkedList<Integer> B = new DoubleLinkedList<>();
+
+        A.add(1);
+        A.add(3);
+        A.add(5);
+        B.add(2);
+        B.add(4);
+        B.add(6);
+/*
         l.add("a");
         l.add("b");
         l.add("c");
@@ -139,6 +159,9 @@ public class DoubleLinkedList<E> {
         System.out.println(l.remove(0));
         System.out.println(l.remove(0));
         System.out.println(l);
+*/
+        A.concatenate(A,B);
+        System.out.println(A);
     }
 
 }

@@ -14,16 +14,19 @@ public class LinkedList<E> {
         size = 0;
     }
 
+
+
     public void trippleCut (){
-        LinkedList<Integer> tempTop = new LinkedList<>();
-        LinkedList<Integer> tempBot = new LinkedList<>();
+        LinkedList<E> tempTop = new LinkedList<>();
+        LinkedList<E> tempBot = new LinkedList<>();
 
         Node<E> current = this.head;
-
-        while (current != 53 || current != 54) {
+        /*
+        while (current.item != 53 || current != 54) {
             tempTop.add(this.remove(0));
             current = current.next;
         }
+        */
     }
 
     public boolean add(E item){
@@ -114,6 +117,10 @@ public class LinkedList<E> {
 
     public static void main(String[] args) {
         LinkedList<String> l = new LinkedList<>();
+        LinkedList<Integer> tempTop = new LinkedList<>();
+        LinkedList<Integer> tempMid = new LinkedList<>();
+        LinkedList<Integer> tempBot = new LinkedList<>();
+
         l.add(0,"a");
         l.add(1,"b");
         l.add(2, "c");
