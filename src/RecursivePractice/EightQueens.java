@@ -61,6 +61,7 @@ public class EightQueens {
         if (solve(board,0) == false) {
             System.out.println("Invalid solution");
             return false;
+
         }
         printBoard(board);
         return true;
