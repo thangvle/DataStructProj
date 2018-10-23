@@ -13,7 +13,7 @@ public class LinkedList<E> {
         head = null;
         size = 0;
     }
-
+/*
     public void trippleCut (){
         LinkedList<Integer> tempTop = new LinkedList<>();
         LinkedList<Integer> tempBot = new LinkedList<>();
@@ -25,6 +25,7 @@ public class LinkedList<E> {
             current = current.next;
         }
     }
+    */
 
     public boolean add(E item){
         this.add(size,item);
