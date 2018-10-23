@@ -1,133 +1,144 @@
 package BinaryTree;
 
-public class BinaryTree<E extends Comparable<E>> {
+public class rightRotation<E extends Comparable<E>> {
 
-    private Node<E> root;
-    private int size;
+    public Node<E> root;
+    //private int size;
 
-    public int size(){
-        return this.size;
+    public rightRotation() {
+        this.root = null;
+        //this.size = 0;
     }
+
+    public int size() {
+
+        return this.size(this.root);
+    }
+
 
     private int size(Node<E> root) {
         if (root == null) {
             return 0;
         }
 
+        //int mySize = 1;
+        //int leftSize = size(root.left);
+        //int rightSize = size(root.right);
         return 1 + size(root.left) + size(root.right);
     }
 
-    public void add(E item){
+
+    public void add(E item) {
         this.root = add(this.root, item);
 
     }
 
-    private Node<E> add (Node<E> root, E item) {
+
+    private Node<E> add(Node<E> root, E item) {
         if (root == null) {
             return new Node<E>(item);
         }
-        int comparison = item.compareTo(root.item);
-
-        if (comparison == 0) {
+        int comparisonResult = item.compareTo(root.item);
+        if (comparisonResult == 0) {
             root.left = add(root.left, item);
             return root;
-        }
-        else if (comparison < 0){
+        } else if (comparisonResult < 0) {
             root.left = add(root.left, item);
             return root;
-        }
-        else {
+        } else {
             root.right = add(root.right, item);
             return root;
         }
+
     }
 
-    public void remove(E item){
+    public void remove(E item) {
         this.root = remove(this.root, item);
     }
 
     private Node<E> remove(Node<E> root, E item) {
-        if (root == null){
+        if (root == null) {
             return null;
         }
-
-        int comparison = item.compareTo(root.item);
-        if (comparison < 0) {
+        int comparisonResult = item.compareTo(root.item);
+        if (comparisonResult < 0) {
             root.left = remove(root.left, item);
             return root;
-        }
-        else if (comparison > 0) {
+        } else if (comparisonResult > 0) {
             root.right = remove(root.right, item);
             return root;
-        }
-        else {
+        } else {  // root is the item we want to delete
 
-            //  Case: Root is leaf
-            if (root.left == null && root.right == null){
+            // case 1, root is leaf
+            if (root.left == null && root.right == null) {
                 return null;
-            }
-
-            //  Case: Root has only left child
+            } // case 2, root has only left child
             else if (root.left != null && root.right == null) {
                 return root.left;
-            }
-
-            else if (root.left == null && root.right != null) {
+            } else if (root.left == null && root.right != null) {
                 return root.right;
-            }
-            else {
-                Node<E> rootOfLeft = root.left;
+            } else {
+                Node<E> rootOfLeftSubtree = root.left;
+                Node<E> parentOfPredecessor = null;
                 Node<E> predecessor = null;
-                Node<E> parentsPredecessor = null;
 
-                if (rootOfLeft.right == null) {
-                    root.item = rootOfLeft.item;
-                    root.left = rootOfLeft.left;
+                if (rootOfLeftSubtree.right == null) {
+                    root.item = rootOfLeftSubtree.item;
+                    root.left = rootOfLeftSubtree.left;
                     return root;
                 } else {
-                    parentsPredecessor = rootOfLeft;
-                    Node<E> current = rootOfLeft;
-
+                    parentOfPredecessor = rootOfLeftSubtree;
+                    Node<E> current = rootOfLeftSubtree.right;
                     while (current.right != null) {
-                        parentsPredecessor = current;
+                        parentOfPredecessor = current;
                         current = current.right;
                     }
 
                     predecessor = current;
                     root.item = predecessor.item;
-                    parentsPredecessor.right = predecessor.left;
+                    parentOfPredecessor.right = predecessor.left;
                     return root;
+
                 }
             }
+
         }
+
+
     }
 
-    public boolean contains(E item){
-
-        return contains(this.root,item);
+    public boolean contains(E item) {
+        return contains(this.root, item);
     }
 
     private boolean contains(Node<E> root, E item) {
         if (root == null) {
             return false;
-        } else {
-            int comparisonResult = item.compareTo(root.item);
-            if (comparisonResult == 0) {
-                return true;
-            } else if (comparisonResult < 0) {
-                return contains(root.left, item);
-            } else {
-                return contains(root.right, item);
-            }
         }
+        int comparisonResult = item.compareTo(root.item);
+        if (comparisonResult == 0) {
+            return true;
+        } else if (comparisonResult < 0) {
+            return contains(root.left, item);
+        } else {
+            return contains(root.right, item);
+        }
+
+
     }
 
-    public String toString(Node<E> root) {
 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        preOrderTraverse(root, 1, sb);
+        return sb.toString();
+    }
+
+
+    private String toString(Node<E> root) {
         if (root == null) {
             return "";
         }
-
         String output = "";
 
         output += root.item + " ";
@@ -135,7 +146,9 @@ public class BinaryTree<E extends Comparable<E>> {
 
         output += toString(root.right);
         return output;
+
     }
+
 
     private void preOrderTraverse(Node<E> root, int depth, StringBuilder sb) {
         for (int i = 1; i < depth; i++) {
@@ -151,22 +164,24 @@ public class BinaryTree<E extends Comparable<E>> {
         }
     }
 
-    public Node<E> rightRotation (Node<E> root) {
+    public Node<E> rightRotate (Node<E> root) {
         Node<E> temp = root.left;
         root.left = temp.right;
         temp.right = root;
+        root = temp;
 
         return temp;
     }
 
-    private static class Node<E extends Comparable<E>>{
+    private static class Node<E extends Comparable<E>> {
         private E item;
-        private Node<E> left;   //left child
-        private Node<E> right;  //right child
+        private Node<E> left;  // left child
+        private Node<E> right; // right child
 
         public Node(E item) {
             this.item = item;
         }
+
 
         public String toString() {
             return item.toString();
@@ -174,21 +189,28 @@ public class BinaryTree<E extends Comparable<E>> {
     }
 
     public static void main(String[] args) {
-        BinaryTree<Integer> tree = new BinaryTree<Integer>();
+        rightRotation<Integer> tree = new rightRotation<Integer>();
         tree.add(5);
         tree.add(1);
         tree.add(0);
         tree.add(2);
+
+        tree.add(4);
         tree.add(3);
+
         tree.add(12);
         tree.add(7);
         tree.add(15);
         tree.add(14);
         tree.add(20);
 
+        tree.remove(1);
+
         System.out.println(tree);
 
-        tree.root = tree.rightRotation(tree.root);
+        tree.root = tree.rightRotate(tree.root);
         System.out.println(tree);
     }
+
 }
+
