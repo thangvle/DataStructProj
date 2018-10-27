@@ -1,5 +1,6 @@
 package BinaryTree;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class IndexNode  {
@@ -9,7 +10,7 @@ public class IndexNode  {
 	// The number of occurrences for this word
 	int occurences;
 	// A list of line numbers for this word.
-	List<Integer> list; 
+	List<Integer> list = new ArrayList<>();
 	
 	
 	
@@ -20,16 +21,21 @@ public class IndexNode  {
 	// Constructors
 	// Constructor should take in a word and a line number
 	// it should initialize the list and set occurrences to 1
-	
-	
-	
-	
-	// Complete This
+
+    public IndexNode(String word, int lineNumber) {
+        this.word = word;
+        list.add(lineNumber);	//	StackOverflow problem starts here
+        occurences = 1;
+    }
+
+
+    // Complete This
 	// return the word, the number of occurrences, and the lines it appears on.
 	// string must be one line
 	
 	public String toString(){
-		return "";
+
+		return word + " " + occurences + " " + list.toString();
 	}
 	
 	

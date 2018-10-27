@@ -1,6 +1,6 @@
 package TimedLab2;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Heap<E extends Comparable<E>> {
     // Your task is to implement a heap using an ArrayList
@@ -77,7 +77,7 @@ public class Heap<E extends Comparable<E>> {
 
 
         int currentIndex = heap.indexOf(item);
-        E parents = heap.get(heap.indexOf(item));
+        E parents = item;
         int compare = item.compareTo(parents);
 
         while (compare < 0) {
@@ -94,6 +94,11 @@ public class Heap<E extends Comparable<E>> {
         size++;
     }
 
+    public static<E> void printHeap (ArrayList<E> heap){
+        for (int i = 0; i < heap.size(); i++) {
+            System.out.print(heap.get(i));
+        }
+    }
 
     // use this main to test
     public static void main(String[] args) {
@@ -102,6 +107,7 @@ public class Heap<E extends Comparable<E>> {
         heap.add(3);
         heap.add(5);
         heap.add(2);
+        //printHeap(heap);
 
     }
 
