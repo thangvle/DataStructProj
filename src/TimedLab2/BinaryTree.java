@@ -33,15 +33,21 @@ public class BinaryTree<E extends Comparable<E>> {
         //  TODO print value
 
 
-        if (root == null) {
-            return;
+        if (root.left == null){
+            System.out.print(root.item + " ");
+
+            if (root.right != null) {
+                printSortedTree(root.right);
+            }
         }
 
-        printSortedTree(root.left);
-
-        System.out.println(root.item + " ");
-
-        printSortedTree(root.right);
+        else {
+            printSortedTree(root.left);
+            System.out.print(root.item + " ");
+            if (root.right != null) {
+                printSortedTree(root.right);
+            }
+        }
     }
 
 
@@ -62,22 +68,18 @@ public class BinaryTree<E extends Comparable<E>> {
         //  Base Case: count stop
         int count = 0;
 
-        if (!root.toString().startsWith(prefix)) {
-            return count;
+        if (root == null){
+            return 0;
         }
-        if (root.toString().startsWith(prefix)){
-            count = countStrings(root, prefix) + 1;
+        if (root.item.startsWith(prefix)){
+            count++;
         }
 
-       return count; // replace this
+        count += countStrings(root.left, prefix);
+        count += countStrings(root.right, prefix);
+
+        return count; // replace this
     }
-
-
-
-
-
-
-
 
 
 
@@ -270,7 +272,7 @@ public class BinaryTree<E extends Comparable<E>> {
         treeString.add("dot");
         treeString.add("toi");
         printSortedTree(tree.root);
-        countStrings(treeString.root,"d");
+        System.out.println(countStrings(treeString.root,"d"));
 
     }
 
