@@ -11,11 +11,11 @@ public class Heap<E extends Comparable<E>> {
     // It's actually pretty easy if you follow the slides
     // Don't overthink it.
     private ArrayList<E> heap;
-    private int size;
+    private int size = 0;
 
     public Heap(){
         this.heap =  new ArrayList<E>();
-        this.size = 0;
+        this.size = heap.size();
     }
 
 
@@ -71,34 +71,20 @@ public class Heap<E extends Comparable<E>> {
     // You will need to use compareTo
     // You do not need to worry about resizing the heap, since the ArrayList does that for you
     public void add(E item) {
-        if (heap == null) {
-            heap.add(item);
-        }
+        heap.add(item);
+        size = heap.size();
 
-
-        int currentIndex = heap.indexOf(item);
-        E parents = item;
-        int compare = item.compareTo(parents);
+        int compare = item.compareTo(heap.get(parentIndex(size-1)));
 
         while (compare < 0) {
-            int current = heap.indexOf(item);
-
-            E leftChild = heap.get(leftIndex(current));
-            E rightChild = heap.get(rightIndex(current));
-
-            heap.add(item);
-            rightChild = parents;
-            parents = item;
+            E temp = heap.get(parentIndex(size-1));
+            heap.add(parentIndex(size-1), item);
+            heap.add(size-1, temp);
         }
 
         size++;
     }
 
-    public static<E> void printHeap (ArrayList<E> heap){
-        for (int i = 0; i < heap.size(); i++) {
-            System.out.print(heap.get(i));
-        }
-    }
 
     // use this main to test
     public static void main(String[] args) {
@@ -107,7 +93,13 @@ public class Heap<E extends Comparable<E>> {
         heap.add(3);
         heap.add(5);
         heap.add(2);
-        //printHeap(heap);
+        System.out.println(heap.size);
+
+        /*
+        for (int i = 0; i < heap.size; i++){
+            System.out.print(heap.toString());
+        }
+        */
 
     }
 
