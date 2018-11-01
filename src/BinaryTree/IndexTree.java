@@ -48,8 +48,9 @@ public class IndexTree {
         int compare = word.compareTo(root.word);
 
         if (compare == 0) {
-            root.left = add(root.left,word, lineNumber);
+            //root.left = add(root.left,word, lineNumber);
             root.occurences++;
+            root.list.add(lineNumber);
             return root;
         } else if (compare < 0) {
             root.left = add(root.left, word, lineNumber);
@@ -59,7 +60,10 @@ public class IndexTree {
             return root;
         }
 	}
-	
+
+
+
+
 	
 	
 	
@@ -160,13 +164,11 @@ public class IndexTree {
             return;
         }
 
-        if (root.left != null) {
             printIndex(root.left);
-        }
+            System.out.println(root);
 
-        if (root.right != null) {
             printIndex(root.right);
-        }
+
 
     }
 

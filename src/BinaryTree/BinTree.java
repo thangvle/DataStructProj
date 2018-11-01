@@ -52,6 +52,25 @@ public class BinTree<E extends Comparable<E>> {
 
     }
 
+    private void otherAdd(Node<E> root, E item) {
+        int comparisonResult = item.compareTo(root.item);
+        if(comparisonResult <= 0) {
+            if(root.left == null){
+                root.left = new Node<>(item);
+
+            } else{
+                otherAdd(root.left,item);
+            }
+        } else{
+            if(root.right == null) {
+                root.right = new Node<>(item);
+            } else{
+                otherAdd(root.right, item);
+            }
+        }
+
+    }
+
     public void remove(E item) {
         this.root = remove(this.root, item);
     }
