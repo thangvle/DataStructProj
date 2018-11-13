@@ -16,4 +16,25 @@ public class HashTable<K,V> {
         this.size = 0;
     }
 
+    public V get(K key) {
+
+        return null;
+    }
+
+    public boolean contains(K key) {
+        return false;
+    }
+
+    public V delete(K key) {
+        return null;
+    }
+
+    private int find(K key) {
+        // Find return the index
+        return -1;
+    }
+
+    private void rehash(){
+
+    }
 }

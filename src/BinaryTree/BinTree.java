@@ -183,6 +183,7 @@ public class BinTree<E extends Comparable<E>> {
         }
     }
 
+
     public Node<E> rightRotate (Node<E> root) {
         Node<E> temp = root.left;
         root.left = temp.right;

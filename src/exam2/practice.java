@@ -2,7 +2,7 @@ package exam2;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/*
 public class practice {
     public static int sizeTree(Node<E> root){
         if (root == null){
@@ -43,6 +43,7 @@ public class practice {
                 map.put(letter,1);
             }
              **/
+/*
             if (!map.containsKey(letter)) {
                 map.put(letter, 0);
             }
@@ -50,3 +51,4 @@ public class practice {
         }
     }
 }
+*/
