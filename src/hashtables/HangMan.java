@@ -82,13 +82,13 @@ public class HangMan {
         String largestFamilyKey=null;
         for(String key:map.keySet()){
             int size = map.get(key).size();
-            if (size>largestFamily.size()){
+            if (size > largestFamily.size()){
                 largestFamily =  map.get(key);
-                largestFamilyKey=key;
+                largestFamilyKey = key;
             }
         }
 
-        for(int i=0;i<largestFamilyKey.length();i++){
+        for(int i=0; i<largestFamilyKey.length(); i++){
             if(largestFamilyKey.charAt(i) != '-'){
                 break;
             }
@@ -98,7 +98,7 @@ public class HangMan {
             }
         }
 
-        for(int i=0;i<largestFamilyKey.length();i++){
+        for(int i=0; i<largestFamilyKey.length(); i++){
             if(largestFamilyKey.charAt(i)!= '-'){
                 currentString.setCharAt(i, largestFamilyKey.charAt(i));
                 letterCount++;

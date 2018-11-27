@@ -52,6 +52,8 @@ public class BinTree<E extends Comparable<E>> {
 
     }
 
+
+
     private void otherAdd(Node<E> root, E item) {
         int comparisonResult = item.compareTo(root.item);
         if(comparisonResult <= 0) {
@@ -210,27 +212,23 @@ public class BinTree<E extends Comparable<E>> {
 
     public static void main(String[] args) {
         BinTree<Integer> tree = new BinTree<Integer>();
+        BinTree<Integer> tree1 = new BinTree<Integer>();
+
         tree.add(5);
         tree.add(1);
         tree.add(0);
         tree.add(2);
 
-        tree.add(4);
-        tree.add(3);
-
-        tree.add(12);
-        tree.add(7);
-        tree.add(15);
-        tree.add(14);
-        tree.add(20);
+        tree1.add(5);
+        tree1.add(1);
+        tree1.add(0);
+        tree1.add(2);
 
         tree.remove(1);
 
         System.out.println(tree);
 
-        tree.root = tree.rightRotate(tree.root);
-        System.out.println(tree);
+        //System.out.println(equals(tree, tree1));
     }
-
 }
 
