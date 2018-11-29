@@ -8,14 +8,18 @@ import java.util.Random;
  *
  */
 public class sortMethod {
+    public static int countCompare = 0;
+    public static int countSwap = 0;
+
+    //Insert Sort
     static void  insertSort(int arr[])
     {
         int n = arr.length;
         // runtime
         // number of swap
         // number of comparison
-        int countCompare = 0;
-        int countSwap = 0;
+        countCompare = 0;
+        countSwap = 0;
         for (int i=1; i<n; ++i)
         {
 
@@ -37,23 +41,23 @@ public class sortMethod {
 
 
         }
-        System.out.println("Swap count: " + countSwap);
-        System.out.println("Compare count: " + countCompare);
+
     }
 
     private int partition (int arr[], int start, int end) {
         int pivot = arr[end];
         int i = (start - 1);
-        int countSwap = 0;
-        int countCompare = 0;
+        countSwap = 0;
+        countCompare = 0;
 
         for (int j = start; j < end; j++) {
+            countCompare++;
             if (arr[j] <= pivot) {
-                countCompare++;
                 i++;
                 int swapTemp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = swapTemp;
+                countSwap++;
             }
         }
         int swapTemp = arr[i+1];
@@ -69,11 +73,10 @@ public class sortMethod {
             int partitionIndex = partition(arr, start, end);
             quickSort(arr, start, partitionIndex - 1);
             quickSort(arr, partitionIndex + 1, end);
-
-
-
         }
     }
+
+
 
     public static void main(String[] args) {
 
@@ -82,8 +85,10 @@ public class sortMethod {
 
         sortMethod obj = new sortMethod();
 
-        int arr[] = new int[100];
-        int arr2[] = new int[100];
+
+
+        int arr[] = new int[5];
+        int arr2[] = new int[5];
 
         for (int i = 0; i < arr.length; i++) {
             arr[i] = r.nextInt(arr.length);
@@ -93,6 +98,14 @@ public class sortMethod {
             arr2[j] = t.nextInt(arr.length);
         }
 
+        System.out.println("Array 1: ");
+
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+
+        System.out.println();
+
         System.out.println("New array2: ");
 
         for (int i = 0; i < arr2.length; i++) {
@@ -100,23 +113,42 @@ public class sortMethod {
         }
 
         System.out.println();
+        System.out.println();
 
         System.out.println("Insertion sort");
+        long startTime = System.nanoTime();
         insertSort(arr);
+        long estimateTime = System.nanoTime()-startTime;
+
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
         }
+
+
+
+        System.out.println();
+
+        System.out.println("Count Swap: " + countSwap);
+        System.out.println("Count Compare: " + countCompare);
+        System.out.println("Time elapsed: " + estimateTime + " nanosecond");
 
 
         System.out.println();
 
         System.out.println("Quick sort");
 
+        long startTime2 = System.nanoTime();
         obj.quickSort(arr2, 0,arr2[arr.length-1]);
+        long estimateTime2 = System.nanoTime() - startTime2;
 
         for (int i = 0; i < arr2.length; i++) {
             System.out.print(arr2[i] + " ");
         }
+        System.out.println();
+
+        System.out.println("Count Swap: " + countSwap);
+        System.out.println("Count Compare: " + countCompare);
+        System.out.println("Time elapsed: " + estimateTime2 + " nanosecond");
 
     }
 
