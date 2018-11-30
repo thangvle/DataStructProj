@@ -101,12 +101,12 @@ public class sortMethod {
             countCompare++;
             if (L[i] <= R[j]) {
                 arr[k] = L[i];
-                //countSwap++;
+                countSwap++;
                 i++;
             }
             else {
                 arr[k] = R[j];
-                //countSwap++;
+                countSwap++;
                 j++;
             }
             k++;
@@ -115,6 +115,7 @@ public class sortMethod {
         //  Copying remaining of left sub-array
         while (i < n1) {
             arr[k] = L[i];
+            countSwap++;
             i++;
             k++;
         }
@@ -122,6 +123,7 @@ public class sortMethod {
         //  Copying remaining of right sub-array
         while (j < n2) {
             arr[k] = R[j];
+            countSwap++;
             j++;
             k++;
         }
@@ -141,13 +143,13 @@ public class sortMethod {
 
         Random r1 = new Random(124);
         Random r2 = new Random(113);
-        Random r3 = new Random(141);
+        Random r3 = new Random(197);
 
         sortMethod obj = new sortMethod();
 
-        int arr[] = new int[5];
-        int arr2[] = new int[5];
-        int arr3[] = new int[5];
+        int arr[] = new int[7];
+        int arr2[] = new int[7];
+        int arr3[] = new int[7];
 
         for (int i = 0; i < arr.length; i++) {
             arr[i] = r1.nextInt(arr.length);
