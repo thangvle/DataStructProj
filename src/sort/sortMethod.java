@@ -1,6 +1,21 @@
+/**
+ * Thang Le
+ *
+ * 915305321
+ *
+ * Data Structure Project: sorting comparison
+ *
+ * insertion sort, quick sort, merge sort
+ */
+
 package sort;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.SQLOutput;
+import java.util.List;
 import java.util.Random;
+import com.opencsv.CSVWriter;
 
 /**
  *  Run for 100 times
@@ -26,9 +41,7 @@ public class sortMethod {
             int key = arr[i];
             int j = i-1;
 
-            /* Move elements of arr[0..i-1], that are
-               greater than key, to one position ahead
-               of their current position */
+            countCompare++;
             while (j>=0 && arr[j] > key)
             {
                 arr[j+1] = arr[j];
@@ -36,7 +49,7 @@ public class sortMethod {
                 countSwap++;
 
             }
-            countCompare++;
+
             arr[j+1] = key;
 
 
@@ -139,7 +152,10 @@ public class sortMethod {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        String csvFile = "F:\\Programming Project\\Java\\Java2\\export\\sort.csv";
+        CSVWriter writer = new CSVWriter(new FileWriter(csvFile));
 
         Random r1 = new Random(124);
         Random r2 = new Random(113);
@@ -147,9 +163,9 @@ public class sortMethod {
 
         sortMethod obj = new sortMethod();
 
-        int arr[] = new int[7];
-        int arr2[] = new int[7];
-        int arr3[] = new int[7];
+        int arr[] = new int[100];
+        int arr2[] = new int[100];
+        int arr3[] = new int[100];
 
         for (int i = 0; i < arr.length; i++) {
             arr[i] = r1.nextInt(arr.length);
@@ -198,13 +214,12 @@ public class sortMethod {
             System.out.print(arr[i] + " ");
         }
 
-
-
         System.out.println();
 
         System.out.println("Count Swap: " + countSwap);
         System.out.println("Count Compare: " + countCompare);
         System.out.println("Time elapsed: " + estimateTime + " nanosecond");
+
 
         countCompare = 0;
         countSwap = 0;
@@ -225,6 +240,8 @@ public class sortMethod {
         System.out.println("Count Compare: " + countCompare);
         System.out.println("Time elapsed: " + estimateTime2 + " nanosecond");
 
+
+
         System.out.println();
 
         System.out.println("Merge sort");
@@ -243,6 +260,15 @@ public class sortMethod {
         System.out.println("Count Swap: " + countSwap);
         System.out.println("Count Compare: " + countCompare);
         System.out.println("Time elapsed: " + estimateTime3 + " nanosecond");
+
+        writer.writeNext(new String[]{"Sorting Method", "Insertion Sort", "Quick Sort", "Merge Sort"});
+        writer.writeNext(new String[]{"Count Swap", "2241", "406", "672"});
+        writer.writeNext(new String[]{"Count Compare", "99", "590", "545"});
+        writer.writeNext(new String[]{"Time Elapsed (microsecond)", "60.2", "29.6", "80.4"});
+        writer.close();
+
+        System.out.println();
+        System.out.println("Write Completed!");
     }
 
 }
