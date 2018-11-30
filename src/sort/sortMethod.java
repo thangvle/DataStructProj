@@ -47,8 +47,8 @@ public class sortMethod {
     private int partition (int arr[], int start, int end) {
         int pivot = arr[end];
         int i = (start - 1);
-        countSwap = 0;
-        countCompare = 0;
+        //countSwap = 0;
+        //countCompare = 0;
 
         for (int j = start; j < end; j++) {
             countCompare++;
@@ -76,26 +76,89 @@ public class sortMethod {
         }
     }
 
+    //Merge Sort
+    void merge (int arr[], int l, int m, int r) {
+        //set up sub-array
+        int n1 = m - l + 1;
+        int n2 = r - m;
 
+        int L[] = new int [n1]; //  left
+        int R[] = new int [n2]; //  right
+
+        //Copying data to sub-array
+        for (int i = 0; i < n1; i++){
+            L[i] = arr[ l + i];
+        }
+        for (int j = 0; j < n2; j++){
+            R[j] = arr[m + 1 + j];
+        }
+
+        //  initializing the first and second sub-arrays
+        int i = 0, j = 0, k = l;
+
+
+        while (i < n1 && j < n2) {
+            countCompare++;
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
+                //countSwap++;
+                i++;
+            }
+            else {
+                arr[k] = R[j];
+                //countSwap++;
+                j++;
+            }
+            k++;
+        }
+
+        //  Copying remaining of left sub-array
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+
+        //  Copying remaining of right sub-array
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+
+    void mergeSort(int arr[], int l, int r) {
+        if (l < r) {
+            int m = (l+r)/2;
+            mergeSort(arr, l, m);
+            mergeSort(arr, m + 1, r);
+
+            merge(arr, l, m, r);
+        }
+    }
 
     public static void main(String[] args) {
 
-        Random r = new Random(124);
-        Random t = new Random(113);
+        Random r1 = new Random(124);
+        Random r2 = new Random(113);
+        Random r3 = new Random(141);
 
         sortMethod obj = new sortMethod();
 
-
-
         int arr[] = new int[5];
         int arr2[] = new int[5];
+        int arr3[] = new int[5];
 
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = r.nextInt(arr.length);
+            arr[i] = r1.nextInt(arr.length);
         }
 
         for (int j = 0; j < arr2.length; j++) {
-            arr2[j] = t.nextInt(arr.length);
+            arr2[j] = r2.nextInt(arr.length);
+        }
+
+        for (int i = 0; i < arr3.length; i++) {
+            arr3[i] = r3.nextInt(arr.length);
         }
 
         System.out.println("Array 1: ");
@@ -106,11 +169,20 @@ public class sortMethod {
 
         System.out.println();
 
-        System.out.println("New array2: ");
+        System.out.println("Array 2: ");
 
         for (int i = 0; i < arr2.length; i++) {
             System.out.print(arr2[i] + " ");
         }
+
+        System.out.println();
+
+        System.out.println("Array 3: ");
+
+        for (int i = 0; i < arr3.length; i++) {
+            System.out.print(arr3[i] + " ");
+        }
+
 
         System.out.println();
         System.out.println();
@@ -132,13 +204,14 @@ public class sortMethod {
         System.out.println("Count Compare: " + countCompare);
         System.out.println("Time elapsed: " + estimateTime + " nanosecond");
 
-
+        countCompare = 0;
+        countSwap = 0;
         System.out.println();
 
         System.out.println("Quick sort");
 
         long startTime2 = System.nanoTime();
-        obj.quickSort(arr2, 0,arr2[arr.length-1]);
+        obj.quickSort(arr2, 0, arr.length-1);
         long estimateTime2 = System.nanoTime() - startTime2;
 
         for (int i = 0; i < arr2.length; i++) {
@@ -150,6 +223,24 @@ public class sortMethod {
         System.out.println("Count Compare: " + countCompare);
         System.out.println("Time elapsed: " + estimateTime2 + " nanosecond");
 
+        System.out.println();
+
+        System.out.println("Merge sort");
+        countSwap = 0;
+        countCompare = 0;
+
+        long startTime3 = System.nanoTime();
+        obj.mergeSort(arr3, 0,arr3.length-1);
+        long estimateTime3 = System.nanoTime() - startTime3;
+
+        for (int i = 0; i < arr3.length; i++) {
+            System.out.print(arr3[i] + " ");
+        }
+        System.out.println();
+
+        System.out.println("Count Swap: " + countSwap);
+        System.out.println("Count Compare: " + countCompare);
+        System.out.println("Time elapsed: " + estimateTime3 + " nanosecond");
     }
 
 }
