@@ -2,19 +2,42 @@ package Graph;
 
 import edu.uci.ics.jung.graph.SparseGraph;
 
+import javax.media.j3d.Link;
 import java.util.*;
 
 public class GraphSetup {
 
-    public static void BFS (Queue<Integer> queue, int startVertex){
 
-        while (queue != null) {
-            queue.add()
+
+    static void BFS (int start, int graphSize){
+
+        boolean visited[] = new boolean[graphSize];
+        Queue<Integer> queue = new LinkedList();
+        LinkedList<Integer> adj[] = new LinkedList[graphSize];
+        for (int i = 0; i < graphSize; i++) {
+            adj[i] = new LinkedList<>();
+        }
+        visited[start] = true;
+        queue.add(start);
+
+        while (queue.size() != 0) {
+            start = queue.poll();
+            System.out.print(start + " ");
+
+            Iterator<Integer> i = adj[start].listIterator();
+            while (i.hasNext()) {
+                int n = i.next();
+                if (!visited[n]) {
+                    visited[n] = true;
+                    queue.add(n);
+                }
+            }
         }
     }
 
     public static void main(String[] args) {
         SparseGraph<Integer, Integer> giraff = new SparseGraph<>();
+
         Queue<Integer> queue = new LinkedList<>();
 
         //left side
@@ -35,9 +58,13 @@ public class GraphSetup {
 
         List<Integer> list = new ArrayList<>(giraff.getVertices());
 
-        System.out.println(list);
+
+
 
         System.out.println(giraff);
 
+        BFS(0, list.size());
     }
+
+
 }
