@@ -1,5 +1,6 @@
 package Graph;
 
+import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseGraph;
 
 import javax.media.j3d.Link;
@@ -8,35 +9,70 @@ import java.util.*;
 public class GraphSetup {
 
 
+    static <V,E> void BFS (Graph<V,E> g , V start){
 
-    static void BFS (int start, int graphSize){
-
-        boolean visited[] = new boolean[graphSize];
-        Queue<Integer> queue = new LinkedList();
-        LinkedList<Integer> adj[] = new LinkedList[graphSize];
-        for (int i = 0; i < graphSize; i++) {
-            adj[i] = new LinkedList<>();
-        }
-        visited[start] = true;
-        queue.add(start);
+        Queue<V> queue = new LinkedList();
+        Set<V> identified = new HashSet<>();
+        List<V> visited = new ArrayList<>();
+        identified.add(start);
+        visited.add(start);
+        queue.offer(start);
 
         while (queue.size() != 0) {
-            start = queue.poll();
-            System.out.print(start + " ");
+            V current = queue.poll();
+            visited.add(current);
 
-            Iterator<Integer> i = adj[start].listIterator();
-            while (i.hasNext()) {
-                int n = i.next();
-                if (!visited[n]) {
-                    visited[n] = true;
-                    queue.add(n);
+
+            for(V neighbor : new ArrayList<>(g.getNeighbors(current))){
+                if (!identified.contains(neighbor) || !visited.contains(neighbor)) {
+                    identified.add(neighbor);
+                    queue.add(neighbor);
                 }
             }
         }
+
+        //  TODO fix printing visited duplicated
+        //System.out.println(queue);
+        for (V s : visited) {
+            System.out.print(s);
+        }
+
+    }
+
+    static <V, E> void DFS (Graph<V, E> g, V start) {
+
+        /**
+         * Mark current vertex
+         *
+         * for each vertex, adj to current vertex,
+         *      if v not visited,
+         *          set parent of v to u
+         *          recursive apply
+         * Mark u as finish and add to finish list
+         */
+
+        //  TODO discovery list - stack
+        //  TODO visited list - set
+        //  TODO finish order -
+
+        List<V> discovery = new ArrayList<>();
+        List<V> visit = new ArrayList<>();
+        discovery.add(start);
+        List<V> finishOrder = new ArrayList<>();
+
+
+        for (V neighbors : new ArrayList<>(g.getNeighbors(start))){
+            if (!discovery.contains(start)) {
+                DFS(g, start);
+            }
+        }
+        visit.add(start);
+        System.out.println(visit);
     }
 
     public static void main(String[] args) {
         SparseGraph<Integer, Integer> giraff = new SparseGraph<>();
+        SparseGraph<Integer, Integer> g = new SparseGraph<>();
 
         Queue<Integer> queue = new LinkedList<>();
 
@@ -56,15 +92,25 @@ public class GraphSetup {
         giraff.addEdge(12, 6, 4);
         giraff.addEdge(13, 6, 7);
 
+        g.addEdge(1, 0, 1);
+        g.addEdge(2, 0, 4);
+        g.addEdge(3, 0, 3);
+        g.addEdge(4, 1, 4);
+        g.addEdge(5, 3, 1);
+        g.addEdge(6, 3, 4);
+        g.addEdge(7, 0, 2);
+        g.addEdge(8, 2, 5);
+        g.addEdge(9, 5, 6);
+        g.addEdge(10, 2, 6);
+
         List<Integer> list = new ArrayList<>(giraff.getVertices());
 
 
 
 
-        System.out.println(giraff);
+        //System.out.println(giraff);
 
-        BFS(0, list.size());
+        BFS(giraff, 0);
+        DFS(g, 0);
     }
-
-
 }
