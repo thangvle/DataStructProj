@@ -154,7 +154,7 @@ public class sortMethod {
 
     public static void main(String[] args) throws IOException {
 
-        String csvFile = "F:\\Programming Project\\Java\\Java2\\export\\sort.csv";
+        String csvFile = "sort.csv";
         CSVWriter writer = new CSVWriter(new FileWriter(csvFile));
 
         Random r1 = new Random(124);
