@@ -39,7 +39,7 @@ public class GraphSetup {
 
     }
 
-    static <V, E> void DFS (Graph<V, E> g, V start) {
+    static <V, E> void DFS (Graph g, List<Integer> visitOrder, List discover, int u) {
 
         /**
          * Mark current vertex
@@ -55,10 +55,11 @@ public class GraphSetup {
         //  TODO visited list - set
         //  TODO finish order -
 
+        /*
         List<V> discovery = new ArrayList<>();
         List<V> visit = new ArrayList<>();
         discovery.add(start);
-        List<V> finishOrder = new ArrayList<>();
+
 
 
         for (V neighbors : new ArrayList<>(g.getNeighbors(start))){
@@ -68,14 +69,27 @@ public class GraphSetup {
         }
         visit.add(start);
         System.out.println(visit);
+        */
+
+        List<Integer> neighbors;
+        discover.add(u);
+        neighbors = new ArrayList<>(g.getNeighbors(u));
+        for (int v : neighbors){
+            if (!discover.contains(v)){
+                DFS(g, visitOrder, discover, v);
+            }
+        }
+        visitOrder.add(u);
+
     }
 
     public static void main(String[] args) {
         SparseGraph<Integer, Integer> giraff = new SparseGraph<>();
         SparseGraph<Integer, Integer> g = new SparseGraph<>();
 
-        Queue<Integer> queue = new LinkedList<>();
-
+        List<Integer> visitOrder = new ArrayList<>();
+        List discover = new ArrayList();
+        int u = 0;
         //left side
         giraff.addEdge(1, 0, 1);
         giraff.addEdge(2, 0, 3);
@@ -111,6 +125,8 @@ public class GraphSetup {
         //System.out.println(giraff);
 
         BFS(giraff, 0);
-        DFS(g, 0);
+        System.out.println();
+        DFS(g, visitOrder, discover, u);
+        System.out.println(visitOrder);
     }
 }
