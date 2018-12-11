@@ -47,7 +47,7 @@ public class Passcode {
         List<String> keylog = new ArrayList<>();
 
 
-        String filename = "C:\\Users\\tshot\\Documents\\Java Project\\DataStructProj\\keylog.txt";
+        String filename = "keylog.txt";
         File file = new File(filename);
         Scanner sc = new Scanner(file);
         while (sc.hasNext()){
