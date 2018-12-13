@@ -1,0 +1,4 @@
+Sorting Method,Insertion Sort,Quick Sort,Merge Sort
+Count Swap,2241,406,672
+Count Compare,99,590,545
+Time Elapsed (microsecond),60.2,29.6,80.4
